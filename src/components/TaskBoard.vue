@@ -236,28 +236,36 @@ export default class TaskBoard extends Vue {
 </script>
 
 <style scoped lang="scss">
-$color-primary: #5f9ea0;
+$color-primary: #17a2b8;
 $color-secondary: grey;
-$color-todo: purple;
-$color-done: grey;
+$color-todo: rgb(138, 12, 89);
+$color-done: #7b7697e1;
 $color-text-primary: white;
 $color-warn: red;
+$screen-small: 480px;
+$screen-big: 1000px;
 .navbar {
-  max-width: 1200px;
+  max-width: $screen-big;
   margin: auto;
   height: 5em;
 }
 .main-wrp {
   display: inline-flex;
   width: 100%;
-  max-width: 1200px;
-  justify-content: space-evenly;
+  max-width: $screen-big;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2em;
+  justify-content: space-between;
 }
 .todo-wrp,
 .done-wrp {
-  width: 40%;
-  min-width: 300px;
+  width: 45%;
+  min-width: 220px;
   max-width: 600px;
+  @media (max-width: $screen-small) {
+    min-width: 180px;
+  }
   h2 {
     font-weight: 600;
     color: $color-primary;
@@ -288,26 +296,43 @@ $color-warn: red;
 .checkmark:hover {
   color: $color-primary;
 }
+.list-group {
+  flex-direction: column;
+  @media (min-width: $screen-big) {
+    flex-direction: unset;
+    flex-wrap: wrap;
+  }
+}
 .list-group-item {
   cursor: move;
   height: 200px;
+  width: 200px;
   color: $color-text-primary;
-  margin: 0.5em;
+  margin: 0.5em auto;
   border-radius: 5px;
   word-break: break-all;
+  @media (max-width: $screen-big) {
+    width: 90%;
+  }
   .item-name {
-    padding: 1em;
+    padding: 0.5em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 1.5em;
     font-weight: 500;
+    @media (max-width: $screen-small) {
+      font-size: 1.2em;
+    }
   }
   .item-description {
-    max-height: 3em;
+    height: 5em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre-wrap;
+    @media (max-width: $screen-small) {
+      font-size: 0.8em;
+    }
   }
   .item-actions {
     position: absolute;
@@ -319,7 +344,7 @@ $color-warn: red;
   background-color: $color-todo;
 }
 .done-item {
-  background-color: $color-secondary;
+  background-color: $color-done;
 }
 ::v-deep .modal-content {
   word-break: break-all;

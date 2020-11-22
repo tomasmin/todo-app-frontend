@@ -3,6 +3,7 @@
     <b-navbar>
       <b-navbar-nav class="ml-auto">
         <b-icon
+          id="new-task-button"
           class="action-button"
           icon="plus-circle"
           v-b-modal.modal-create
@@ -78,12 +79,14 @@
           <b-icon
             v-if="!selectedTask.isDone"
             class="action-button checkmark"
+            id="checkmark"
             icon="check2-square"
             @click="taskDone(selectedTask.id)"
             v-b-tooltip="'Mark as done'"
           ></b-icon>
           <b-icon
             class="action-button trashbin"
+            id="trashbin"
             icon="trash"
             @click="deleteTask(selectedTask.id), $bvModal.hide('modal-task')"
             v-b-tooltip="'Delete task'"
@@ -93,9 +96,13 @@
 
       <b-modal id="modal-create" title="Create a task" hide-footer>
         <b-form @submit="onSubmit">
-          <b-form-group id="input-group-1" label="Name:" label-for="input-1">
+          <b-form-group
+            id="name-input-group"
+            label="Name:"
+            label-for="name-input"
+          >
             <b-form-input
-              id="input-1"
+              id="name-input"
               v-model="form.name"
               required
               placeholder="Enter name"
@@ -105,18 +112,20 @@
           </b-form-group>
 
           <b-form-group
-            id="input-group-2"
+            id="description-input-group"
             label="Description:"
-            label-for="input-2"
+            label-for="description-input"
           >
             <b-form-input
-              id="input-2"
+              id="description-input"
               v-model="form.description"
               placeholder="Enter description (optional)"
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="info">Submit</b-button>
+          <b-button id="submit-button" type="submit" variant="info"
+            >Submit</b-button
+          >
         </b-form>
       </b-modal>
     </div>
